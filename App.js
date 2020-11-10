@@ -1,114 +1,273 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
+import React, { useState } from 'react'
 import {
+  TouchableOpacity,
   SafeAreaView,
   StyleSheet,
-  ScrollView,
+  TextInput,
   View,
   Text,
-  StatusBar,
-} from 'react-native';
+} from 'react-native'
+import CheckBox from '@react-native-community/checkbox'
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const App = () => {
+  const [satu, setSatu] = useState(null)
+  const [dua, setDua] = useState(null)
+  const [tiga, setTiga] = useState(null)
+  const [hasil, setHasil] = useState(null)
 
-const App: () => React$Node = () => {
+  const [cekA, setCekA] = useState(true)
+  const [cekB, setCekB] = useState(true)
+  const [cekC, setCekC] = useState(true)
+
+  const validate = (value, list) => {
+    if (value) {
+      list.push(value);
+    }
+  };
+
+  const tambah = () => {
+    const data = []
+    let a = null
+    let b = null
+    let c = null
+
+    if(cekA) {
+      a = Number(satu)
+    }
+    if(cekB) {
+      b = Number(dua)
+    }
+    if(cekC) {
+      c = Number(tiga)
+    }
+
+    validate(a, data)
+    validate(b, data)
+    validate(c, data)
+
+    let result = data[0]
+    for(let i=1;i<data.length;i++) {
+      result += data[i]
+    }
+
+    if(data.length <= 1) {
+      setHasil("Error")
+    } else {
+      setHasil(result)
+    }
+  }
+
+  const kurang = () => {
+    const data = []
+    let a = null
+    let b = null
+    let c = null
+
+    if(cekA) {
+      a = Number(satu)
+    }
+    if(cekB) {
+      b = Number(dua)
+    }
+    if(cekC) {
+      c = Number(tiga)
+    }
+
+    validate(a, data)
+    validate(b, data)
+    validate(c, data)
+
+    let result = data[0]
+    for(let i=1;i<data.length;i++) {
+      result -= data[i]
+    }
+
+    if(data.length <= 1) {
+      setHasil("Error")
+    } else {
+      setHasil(result)
+    }
+  }
+
+  const kali = () => {
+    const data = []
+    let a = null
+    let b = null
+    let c = null
+
+    if(cekA) {
+      a = Number(satu)
+    }
+    if(cekB) {
+      b = Number(dua)
+    }
+    if(cekC) {
+      c = Number(tiga)
+    }
+
+    validate(a, data)
+    validate(b, data)
+    validate(c, data)
+
+    let result = data[0]
+    for(let i=1;i<data.length;i++) {
+      result *= data[i]
+    }
+
+    if(data.length <= 1) {
+      setHasil("Error")
+    } else {
+      setHasil(result)
+    }
+  }
+
+  const bagi = () => {
+    const data = []
+    let a = null
+    let b = null
+    let c = null
+
+    if(cekA) {
+      a = Number(satu)
+    }
+    if(cekB) {
+      b = Number(dua)
+    }
+    if(cekC) {
+      c = Number(tiga)
+    }
+
+    validate(a, data)
+    validate(b, data)
+    validate(c, data)
+
+    let result = data[0]
+    for(let i=1;i<data.length;i++) {
+      result /= data[i]
+    }
+
+    if(data.length <= 1) {
+      setHasil("Error")
+    } else {
+      setHasil(result)
+    }
+  }
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Kalkulator Sederhana</Text>
+      <View style={styles.input}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Masukkan angka"
+          keyboardType="number-pad"
+          value={satu}
+          onChangeText={(val) => setSatu(val)}
+        />
+        <CheckBox
+          value={cekA}
+          onValueChange={() => setCekA(cekA ? false : true)}
+        />
+      </View>
+      <View style={styles.input}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Masukkan angka"
+          keyboardType="number-pad"
+          value={dua}
+          onChangeText={(val) => setDua(val)}
+        />
+        <CheckBox
+          value={cekB}
+          onValueChange={() => setCekB(cekB ? false : true)}
+        />
+      </View>
+      <View style={styles.input}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Masukkan angka"
+          keyboardType="number-pad"
+          value={tiga}
+          onChangeText={(val) => setTiga(val)}
+        />
+        <CheckBox
+          value={cekC}
+          onValueChange={() => setCekC(cekC ? false : true)}
+        />
+      </View>
+
+      <View style={styles.operator}>
+        <TouchableOpacity onPress={tambah} style={styles.operatorBtn}>
+          <Text>+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={kurang} style={styles.operatorBtn}>
+          <Text>-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={kali} style={styles.operatorBtn}>
+          <Text>X</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={bagi} style={styles.operatorBtn}>
+          <Text>/</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.hasil}>
+        <Text style={styles.labelHasil}>Hasil:</Text>
+        <Text style={styles.sum}>{hasil}</Text>
+      </View>
+    </SafeAreaView>
+  )
+}
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 15
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20
   },
-  body: {
-    backgroundColor: Colors.white,
+  input: {
+    flexDirection: 'row',
+    marginBottom: 15,
+    alignItems: 'center'
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  inputText: {
+    borderWidth: 2,
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 5
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
+  operator: {
+    flexDirection: 'row',
   },
-  sectionDescription: {
-    marginTop: 8,
+  operatorBtn: {
+    flex: 1,
+    marginHorizontal: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    alignItems: 'center'
+  },
+  hasil: {
+    marginTop: 15,
+    flexDirection: 'row',
+  },
+  labelHasil: {
     fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
+    fontWeight: 'bold',
+    flex: 1
   },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+  sum: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    alignSelf: 'flex-end'
+  }
+})
 
-export default App;
+export default App
